@@ -37,6 +37,15 @@ def add_post():
         return redirect(url_for('home'))
     return render_template('add_post.html')
 
+# Route to delete a post
+@app.route('/delete/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('home'))
+    
+
 if __name__ == '__main__':
     create_tables()  # Initialize the database
     app.run(debug=True)

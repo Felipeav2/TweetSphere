@@ -2,12 +2,9 @@
 <html>
 <head>
     <title>Blog Home</title>
-    <!-- Add any additional styles or links to stylesheets here -->
 </head>
 <body>
     <h1>Welcome to My Blog</h1>
-
-    <!-- Button to navigate to the Add Post page -->
     <a href="{{ url_for('add_post') }}"><button>Add New Post</button></a>
 
     <div>
@@ -15,6 +12,10 @@
             <div>
                 <h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
                 <p>{{ post.content[:100] }}...</p>
+                <!-- Delete Button -->
+                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                </form>
             </div>
         {% endfor %}
     </div>
