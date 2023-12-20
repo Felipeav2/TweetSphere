@@ -1,21 +1,23 @@
-<!-- add_post.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Add New Post</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Add a New Post</h1>
-    <form method="post">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br>
-
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" required></textarea><br>
-
-        <input type="submit" value="Add Post">
-    </form>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <header>
+        <h1>Add a New Post</h1>
+    </header>
+    <div class="container">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required><br>
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" required></textarea><br>
+            <input type="submit" value="Add Post">
+        </form>
+        <a href="{{ url_for('home') }}" class="button">Back to Home</a>
+    </div>
 </body>
 </html>

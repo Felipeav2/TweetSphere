@@ -1,13 +1,17 @@
-<!-- post.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <header>
+        <h1> My blog </h1>
+    </header>
+    <div class="container">
+        <h2> {{ post.title }} </h2>
+        <p>{{ post.content }}</p>
+        <a href="{{ url_for('home') }}" class="button">Back to Home</a>
+    </div>
 </body>
 </html>
