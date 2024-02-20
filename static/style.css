@@ -1,30 +1,31 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    background: #f4f4f4;
-    color: #333;
+    background: #000; /* Black background */
+    color: #222; /* White text */
     margin: 0;
     padding: 0;
 }
 
 header {
-    background: #1DA1F2; /* Twitter Blue */
-    color: #fff;
-    padding: 10px 0;
+    background: #000; /* Black background for the header */
+    color: #222;
+    padding: 20px 0;
     text-align: center;
 }
 
+
 .container {
-    width: 50%;
+    width: 80%; /* Adjusted for better responsiveness */
     margin: 20px auto;
-    background: #fff;
+    background: #222; /* Slightly lighter black for contrast */
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .post {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #444; /* Lighter than the background for visibility */
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
@@ -34,11 +35,11 @@ header {
 }
 
 .post h2 {
-    color: #1DA1F2;
+    color: #222; /* Retained the Twitter blue for titles */
 }
 
 .post p {
-    color: #555;
+    color: #ccc; /* Lighter gray for readable contrast */
 }
 
 .button, .button-delete {
@@ -50,42 +51,89 @@ header {
     color: #fff;
     font-weight: bold;
     text-align: center;
+    border: none; /* Remove border for a cleaner look */
 }
 
 .button {
-    background: #1DA1F2;
+    background: #555; /* Dark gray */
 }
 
 .button:hover {
-    background: #1991db;
+    background: #666; /* Lighter gray on hover */
 }
 
 .button-delete {
-    background: #FF3333;
+    background: #FF3333; /* Red for delete, kept for semantic meaning */
 }
 
 .button-delete:hover {
-    background: #CC0000;
+    background: #CC0000; /* Darker red on hover */
 }
 
+.btn-primary {
+    background-color: #000; /* Black background */
+    border: none; /* Remove the border */
+    color: #fff; /* White text */
+    border-radius: 50px; /* Fully rounded edges */
+    padding: 10px 20px; /* Top and bottom padding and larger left and right padding */
+    text-decoration: none; /* Remove underline from links if needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for depth */
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #333; /* Slightly lighter black for hover/focus */
+    color: #fff; /* Ensure the text color stays white */
+    text-decoration: none; /* Ensure no underline on hover/focus */
+}
+
+.btn-secondary {
+    background-color: #fff; /* Black background */
+    border: none; /* Remove the border */
+    color: #000; /* White text */
+    border-radius: 50px; /* Fully rounded edges */
+    padding: 10px 20px; /* Top and bottom padding and larger left and right padding */
+    text-decoration: none; /* Remove underline from links if needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for depth */
+}
+
+.btn-secondary:hover, .btn-primary:focus {
+    background-color: #fff; /* Slightly lighter black for hover/focus */
+    color: #333; /* Ensure the text color stays white */
+    text-decoration: none; /* Ensure no underline on hover/focus */
+}
+
+
+
 input[type="text"], textarea {
+    background: #000; /* Black background for input and textarea */
+    color: #fff; /* White text for readability */
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ddd;
+    border: 1px solid #444; /* Subtle border for a slight contrast */
     border-radius: 5px;
 }
 
 input[type="submit"] {
+    background: #000; /* Black background for the submit button */
+    color: #fff; /* White text for visibility */
     width: auto;
     padding: 10px 20px;
     border-radius: 25px;
-    background: #1DA1F2;
-    color: #fff;
-    border: none;
+    border: 1px solid #444; /* Subtle border to define the button's edges */
     cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background: #1991db;
+    background: #222; /* Slightly lighter black on hover for a subtle effect */
+    border-color: #fff; /* Optional: Change border color on hover for more visibility */
 }
+
+
+input[type="submit"]:hover {
+    background: #222; /* Slightly lighter black on hover for a subtle effect */
+    border-color: #fff; /* Optional: Change border color on hover for more visibility */
+}
+
