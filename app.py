@@ -15,6 +15,7 @@ from flask_wtf.csrf import CSRFProtect
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db, login_manager, csrf
 from models import User
+#username Felipe password hello
 
 
 app = Flask(__name__)
