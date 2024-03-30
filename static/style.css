@@ -81,10 +81,12 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for depth */
 }
 
-.btn-primary:hover, .btn-primary:focus {
+.btn-primary:hover, .btn-primary:focus, .btn-header:hover, .btn-header2:hover {
     background-color: #333; /* Slightly lighter black for hover/focus */
     color: #fff; /* Ensure the text color stays white */
     text-decoration: none; /* Ensure no underline on hover/focus */
+    border-radius: 50px; /* Fully rounded edges */
+
 }
 
 .btn-secondary {
@@ -137,3 +139,27 @@ input[type="submit"]:hover {
     border-color: #fff; /* Optional: Change border color on hover for more visibility */
 }
 
+.navbar-brand{
+
+}
+
+.align-icon {
+    vertical-align: middle;
+}
+
+.btn-header{
+    font-size: 20px;
+    color: #fff;
+    padding: 0%;
+}
+
+.btn-header2{
+    font-size: 15px;
+    color: #fff;
+    padding: 0%;
+}
+
+.black-bkg{
+    background-color: #000;
+    color: #fff;
+}

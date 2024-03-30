@@ -15,6 +15,8 @@ from flask_wtf.csrf import CSRFProtect
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db, login_manager, csrf
 from models import User
+from datetime import datetime
+from flask_migrate import Migrate
 #username Felipe password hello
 
 
@@ -22,16 +24,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SECRET_KEY'] = 'secret-key'  # Set a secret key for security purposes
 
+
 # Initialize Flask-Login
 login_manager.init_app(app)
 
 # Initialize SQLAlchemy
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
 # Initialize CSRF protection
 csrf.init_app(app)
-
-
 
 # After initializing your Flask app and SQLAlchemy
 login_manager = LoginManager(app)
@@ -48,6 +52,10 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #Foreign key for referencing User
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    author = db.relationship("User", backref="posts")
 
 
 # Define the form for adding a new post
@@ -139,7 +147,7 @@ def post(post_id):
 def add_post():
     form = PostForm()
     if form.validate_on_submit():
-        new_post = Post(title=form.title.data, content=form.content.data)
+        new_post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id)
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('home'))
