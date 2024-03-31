@@ -50,7 +50,6 @@ def load_user(user_id):
 # Define a model for the blog posts
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #Foreign key for referencing User
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -60,7 +59,6 @@ class Post(db.Model):
 
 # Define the form for adding a new post
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Add Post')
 
@@ -85,11 +83,25 @@ def create_tables():
 
 
 # Home page route - lists all posts
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    posts = Post.query.all()
-    return render_template('home.html', posts=posts)
+    #define post form so that user can add posts from the main page
+    form = PostForm()
 
+    if request.method == 'POST':
+
+        if not current_user.is_authenticated:
+            return redirect(url_for('login'))
+
+        if form.validate_on_submit():
+            new_post = Post(content=form.content.data, user_id=current_user.id)
+            db.session.add(new_post)
+            db.session.commit()
+            return redirect(url_for('home'))
+    
+    #Fetch post from database to display on the main page
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('home.html', posts=posts, form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -140,18 +152,6 @@ def logout():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', post=post)
-
-# Add a new post
-@app.route('/add', methods=['GET', 'POST'])
-@login_required
-def add_post():
-    form = PostForm()
-    if form.validate_on_submit():
-        new_post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id)
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect(url_for('home'))
-    return render_template('add_post.html', form=form)
 
 @csrf.exempt
 # Route to delete a post

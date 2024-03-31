@@ -139,10 +139,6 @@ input[type="submit"]:hover {
     border-color: #fff; /* Optional: Change border color on hover for more visibility */
 }
 
-.navbar-brand{
-
-}
-
 .align-icon {
     vertical-align: middle;
 }
@@ -154,12 +150,36 @@ input[type="submit"]:hover {
 }
 
 .btn-header2{
-    font-size: 15px;
+    font-size: 18px;
     color: #fff;
     padding: 0%;
 }
 
 .black-bkg{
     background-color: #000;
+    color: #fff;
+}
+
+.form-control{
+    background-color: #000;
+    border: none;
+}
+
+.form-control:focus{
+    background-color: #000;
+    border: none;
+    color: white;
+    outline: 1px solid black;
+    box-shadow: none;
+}   
+
+.btn-custom {
+    background-color: #38a4d6; /* Baby blue color */
+    color: #fff; /* White text color */
+    border-radius: 20px; /* Rounded corners */
+}
+
+.btn-custom:hover {
+    background-color: #0f87c2; /* Slightly darker shade of baby blue for hover effect */
     color: #fff;
 }
