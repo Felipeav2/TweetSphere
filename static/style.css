@@ -71,7 +71,7 @@ header {
 }
 
 .btn-primary {
-    background-color: #000; /* Black background */
+    background-color: #008AD8; /* Black background */
     border: none; /* Remove the border */
     color: #fff; /* White text */
     border-radius: 50px; /* Fully rounded edges */
@@ -174,12 +174,14 @@ input[type="submit"]:hover {
 }   
 
 .btn-custom {
-    background-color: #38a4d6; /* Baby blue color */
-    color: #fff; /* White text color */
+    background-color: #008AD8; /* Corrected baby blue color */
+    color: #fff; /* White text color for visibility */
     border-radius: 20px; /* Rounded corners */
 }
 
-.btn-custom:hover {
-    background-color: #0f87c2; /* Slightly darker shade of baby blue for hover effect */
-    color: #fff;
+.btn-custom:hover,
+.btn-custom:active { /* Apply the same styles for hover and active states */
+    background-color: #008AD8; /* Slightly darker shade of baby blue for hover effect */
+    color: #fff; /* Keep text color white on hover and active */
 }
+

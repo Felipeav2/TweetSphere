@@ -17,6 +17,7 @@ from extensions import db, login_manager, csrf
 from models import User
 from datetime import datetime
 from flask_migrate import Migrate
+from sqlalchemy.orm import joinedload
 #username Felipe password hello
 
 
@@ -62,6 +63,22 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Add Post')
 
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+
+    author = db.relationship('User', backref='comments')
+    post = db.relationship('Post', backref=db.backref('comments', lazy='select'))
+
+
+class CommentForm(FlaskForm):
+    body = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+    
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -147,18 +164,35 @@ def logout():
 
 
 # View a single post
-@app.route('/post/<int:post_id>')
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', post=post)
+    comments = Comment.query.filter_by(post_id=post.id).order_by(Comment.timestamp.asc()).all()
+    form = CommentForm()
+    if form.validate_on_submit() and current_user.is_authenticated:
+        new_comment = Comment(body=form.body.data, user_id=current_user.id, post_id=post.id)
+        db.session.add(new_comment)
+        try:
+            db.session.add(new_comment)
+            print("Comment added to the session.")
+            db.session.commit()
+            print("Database commit successful.")
+        except Exception as e:
+            print("Failed to add comment:", e)
+            db.session.rollback()
+
+        return redirect(url_for('post', post_id=post.id))
+    return render_template('post.html', post=post, form=form, comments=comments)
 
 @csrf.exempt
 # Route to delete a post
 @app.route('/delete/<int:post_id>', methods=['POST'])
 @login_required
 def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.options(joinedload(Post.comments)).get_or_404(post_id)
+    for comment in post.comments:
+        db.session.delete(comment)
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('home'))
